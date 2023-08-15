@@ -1,9 +1,10 @@
 # es-demo
 ---
 docker run elastic/rally list tracks
-$ docker run elastic/rally race --track=nyc_taxis --test-mode --pipeline=benchmark-only --target-hosts=:9200
+docker run elastic/rally race --track=nyc_taxis --test-mode --pipeline=benchmark-only --target-hosts=:9200
 
-kubectl -n elk run -it esrally --image elastic/rally -- /bin/sh
+kubectl apply -f rally.yaml
+kubectl exec -it esrally -- /bin/sh
 esrally race --track=nyc_taxis --pipeline=benchmark-only --challenge=append-no-conflicts-index-only --target-hosts=10.106.17.121:9200 --client-options="use_ssl:false,verify_certs:false"
 
 curl -i -X POST http://elastic:changeme@elasticsearch.elk.svc.cluster.local:9200/_cluster/nodes/

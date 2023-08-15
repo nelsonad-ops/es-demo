@@ -1,0 +1,41 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: esrally
+spec:
+  volumes:
+    - name: rally-pv
+      persistentVolumeClaim:
+        claimName: rally-pvc
+    - name: logging-json
+      configMap:
+        name: logging-json
+    - name: rally-ini
+      configMap:
+        name: rally-ini
+  containers:
+    - name: rally-single
+      image: elastic/rally:latest
+      volumeMounts:
+        - mountPath: "/.rally"
+          name: rally-pv
+        - mountPath: "/.rally/logging.json"
+          name: logging-json
+          subPath: "logging.json"
+        - mountPath: "/.rally/rally.ini"
+          name: rally-ini
+          subPath: "rally.ini"
+      command: [ "/bin/bash", "-c", "--" ]
+      args: [ "while true; do sleep 30; done;" ]
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rally-pvc
+spec:
+  storageClassName: px-csi-db
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
