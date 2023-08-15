@@ -16,6 +16,11 @@ spec:
   containers:
     - name: rally-single
       image: elastic/rally:latest
+      resources:
+        requests:
+          ephemeral-storage: "30Gi" 
+        limits:
+          ephemeral-storage: "40Gi"
       volumeMounts:
         - mountPath: "/.rally"
           name: rally-pv
