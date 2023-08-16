@@ -18,9 +18,9 @@ spec:
       image: elastic/rally:latest
       resources:
         requests:
-          ephemeral-storage: "50Gi" 
+          ephemeral-storage: "90Gi" 
         limits:
-          ephemeral-storage: "100Gi"
+          ephemeral-storage: "92Gi"
       volumeMounts:
         - mountPath: "/.rally"
           name: rally-pv
