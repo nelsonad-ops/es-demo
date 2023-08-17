@@ -19,8 +19,6 @@ spec:
       resources:
         requests:
           ephemeral-storage: "90Gi" 
-        limits:
-          ephemeral-storage: "92Gi"
       volumeMounts:
         - mountPath: "/.rally"
           name: rally-pv
